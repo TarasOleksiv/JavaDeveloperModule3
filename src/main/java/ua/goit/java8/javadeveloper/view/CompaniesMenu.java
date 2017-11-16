@@ -5,7 +5,6 @@ import ua.goit.java8.javadeveloper.dao.jdbc.JdbcCompanyDAOImpl;
 import ua.goit.java8.javadeveloper.model.Company;
 import ua.goit.java8.javadeveloper.dao.CompanyDAO;
 
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -33,13 +32,6 @@ class CompaniesMenu extends AbstractMenu {
     void getAll() {
         //List<Company> companies = jdbcCompanyDAO.getAll();
         List<Company> companies = CompanyDAO.getAll();
-        //for (Iterator iterator = companies.iterator(); iterator.hasNext();){
-        //    Company company = (Company) iterator.next();
-        //    System.out.print(company);
-        //}
-
-        //System.out.println(companies.get(0).getClass().getName());
-
 
         System.out.println("********** Companies ************");
         if (companies != null){
@@ -59,7 +51,8 @@ class CompaniesMenu extends AbstractMenu {
         System.out.print("Введіть id компанії: ");
         Long id = sc.nextLong();
         sc.nextLine();
-        Company company = jdbcCompanyDAO.getById(id);
+        //Company company = jdbcCompanyDAO.getById(id);
+        Company company = CompanyDAO.getById(id);
 
         System.out.println("********** Company ************");
         if (company != null){
