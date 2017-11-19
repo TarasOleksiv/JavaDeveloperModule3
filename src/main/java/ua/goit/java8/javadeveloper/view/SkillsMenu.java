@@ -1,6 +1,7 @@
 package ua.goit.java8.javadeveloper.view;
 
-import ua.goit.java8.javadeveloper.dao.jdbc.JdbcSkillDAOImpl;
+import ua.goit.java8.javadeveloper.dao.SkillDAO;
+import ua.goit.java8.javadeveloper.dao.hibernate.HibernateSkillDAOImpl;
 import ua.goit.java8.javadeveloper.model.Skill;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  */
 public class SkillsMenu extends AbstractMenu {
 
-    private static JdbcSkillDAOImpl jdbcSkillDAO = new JdbcSkillDAOImpl();
+   private static SkillDAO SkillDAO = new HibernateSkillDAOImpl();
 
     @Override
     void menu() {
@@ -26,7 +27,7 @@ public class SkillsMenu extends AbstractMenu {
 
     @Override
     void getAll() {
-        List<Skill> skills = jdbcSkillDAO.getAll();
+        List<Skill> skills = SkillDAO.getAll();
 
         System.out.println("********** Skills ************");
         if (skills != null){
@@ -44,7 +45,7 @@ public class SkillsMenu extends AbstractMenu {
         System.out.print("Введіть id скіла: ");
         Long id = sc.nextLong();
         sc.nextLine();
-        Skill skill = jdbcSkillDAO.getById(id);
+        Skill skill = SkillDAO.getById(id);
 
         System.out.println("********** Skill ************");
         if (skill != null){
@@ -62,7 +63,7 @@ public class SkillsMenu extends AbstractMenu {
 
         Skill skill = new Skill();
         skill.withName(name);
-        jdbcSkillDAO.create(skill);
+        SkillDAO.create(skill);
     }
 
     @Override
@@ -70,14 +71,14 @@ public class SkillsMenu extends AbstractMenu {
         System.out.print("Введіть id скіла: ");
         Long id = sc.nextLong();
         sc.nextLine();
-        Skill skill = jdbcSkillDAO.getById(id);  //перевірка чи скіл з таким id існує
+        Skill skill = SkillDAO.getById(id);  //перевірка чи скіл з таким id існує
 
         if (skill != null){
             System.out.println("Введіть назву скіла: ");
             String name = sc.nextLine().trim();
             skill.withId(id)
                     .withName(name);
-            jdbcSkillDAO.update(skill);
+            SkillDAO.update(skill);
         } else {
             System.out.println("Скіл з id = " + id + " відсутній.");
         }
@@ -88,10 +89,10 @@ public class SkillsMenu extends AbstractMenu {
         System.out.print("Введіть id скіла: ");
         Long id = sc.nextLong();
         sc.nextLine();
-        Skill skill = jdbcSkillDAO.getById(id);  //перевірка чи скіл з таким id існує
+        Skill skill = SkillDAO.getById(id);  //перевірка чи скіл з таким id існує
 
         if (skill != null){
-            jdbcSkillDAO.delete(skill);
+            SkillDAO.delete(skill);
         } else {
             System.out.println("Скіл з id = " + id + " відсутній.");
         }

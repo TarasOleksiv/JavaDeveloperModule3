@@ -1,29 +1,50 @@
 package ua.goit.java8.javadeveloper.model;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Taras on 11.11.2017.
  */
+
+@Entity
+@Table(name = "projects")
 public class Project {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+
+    @Column(name = "name")
     private String name;
-    private Long customer_id;
-    private Long company_id;
+
+    @ManyToOne  // проект може замовити лише один замовник
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    private Customer customer;
+
+    @ManyToOne  // проект може розроблятись лише в одній компанії
+    @JoinColumn(name = "company_id", referencedColumnName = "id")
+    private Company company;
+
+    @Column(name = "costs")
     private BigDecimal costs;
-    private List<Developer> developers;
+
+    @ManyToMany(fetch = FetchType.EAGER) // зв'язок проекти <--> девелопери
+    @JoinTable(name = "developer_projects",
+            joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "developer_id"))
+    private Set<Developer> developers;
 
     public Project() {
     }
 
-    public Project(Long id, String name, Long customer_id, Long company_id, BigDecimal costs, List<Developer> developers) {
-        this.id = id;
+    public Project(String name, Customer customer, Company company, BigDecimal costs) {
         this.name = name;
-        this.customer_id = customer_id;
-        this.company_id = company_id;
+        this.customer = customer;
+        this.company = company;
         this.costs = costs;
-        this.developers = developers;
     }
 
     public Long getId() {
@@ -42,20 +63,20 @@ public class Project {
         this.name = name;
     }
 
-    public Long getCustomer_id() {
-        return customer_id;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomer_id(Long customer_id) {
-        this.customer_id = customer_id;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public Long getCompany_id(){
-        return company_id;
+    public Company getCompany(){
+        return company;
     }
 
-    public void setCompany_id(Long company_id){
-        this.company_id = company_id;
+    public void setCompany(Company company){
+        this.company = company;
     }
 
     public BigDecimal getCosts() {
@@ -66,11 +87,11 @@ public class Project {
         this.costs = costs;
     }
 
-    public List<Developer> getDevelopers() {
+    public Set<Developer> getDevelopers() {
         return developers;
     }
 
-    public void setDevelopers(List<Developer> developers) {
+    public void setDevelopers(Set<Developer> developers) {
         this.developers = developers;
     }
 
@@ -84,13 +105,13 @@ public class Project {
         return this;
     }
 
-    public Project withCustomer_id(Long customer_id){
-        this.customer_id = customer_id;
+    public Project withCustomer(Customer customer){
+        this.customer = customer;
         return this;
     }
 
-    public Project withCompany_id(Long company_id){
-        this.company_id = company_id;
+    public Project withCompany(Company company){
+        this.company = company;
         return this;
     }
 
@@ -99,35 +120,50 @@ public class Project {
         return this;
     }
 
-    public Project withDevelopers(List<Developer> developers){
-        this.developers = developers;
-        return this;
-    }
-
     @Override
     public String toString() {
         return "Project{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", customer_id='" + customer_id + '\'' +
-                ", company_id='" + company_id + '\'' +
+                ", customer='" + customer.getName() + '\'' +
+                ", company='" + company.getName() + '\'' +
                 ", costs=" + costs +
-                '}';
+                //"\n        developers=" + showDevelopers() +
+                "}";
     }
 
     private String showDevelopers(){
         String result = "";
         for (Developer developer: developers){
-            result += developer.getFirstName() + " " + developer.getLastName() + ",";
+            result += developer + ",";
         }
         return result;
     }
 
     public String showProjectDevelopers(){
         return "Project{" +
-                name + "; " +
+                "id=" +id + " " +
+                "name=" + name + "; " +
                 "{Developers: " +
                 showDevelopers() +
                 "}}";
     }
+
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (!this.getClass().equals(obj.getClass())) return false;
+
+        Project obj2 = (Project) obj;
+        if((this.id == obj2.getId()) && (this.name.equals(obj2.getName()))) {
+            return true;
+        }
+        return false;
+    }
+
+    public int hashCode() {
+        int tmp = 0;
+        tmp = ( id + name).hashCode();
+        return tmp;
+    }
+
 }

@@ -23,9 +23,13 @@
 
         <!-- Маппінг класів-->
         <mapping class="ua.goit.java8.javadeveloper.model.Company"/>
+        <mapping class="ua.goit.java8.javadeveloper.model.Customer"/>
+        <mapping class="ua.goit.java8.javadeveloper.model.Skill"/>
+        <mapping class="ua.goit.java8.javadeveloper.model.Developer"/>
+        <mapping class="ua.goit.java8.javadeveloper.model.Project"/>
 
         <!-- Mapping files -->
-        <!--mapping resource="Company.hbm.xml"/-->
+        <!--mapping resource="SomeClass.hbm.xml"/-->
 
     </session-factory>
 </hibernate-configuration>

@@ -1,7 +1,6 @@
 package ua.goit.java8.javadeveloper.view;
 
 import ua.goit.java8.javadeveloper.dao.hibernate.HibernateCompanyDAOImpl;
-import ua.goit.java8.javadeveloper.dao.jdbc.JdbcCompanyDAOImpl;
 import ua.goit.java8.javadeveloper.model.Company;
 import ua.goit.java8.javadeveloper.dao.CompanyDAO;
 
@@ -13,8 +12,7 @@ import java.util.List;
 
 class CompaniesMenu extends AbstractMenu {
 
-    private static JdbcCompanyDAOImpl jdbcCompanyDAO = new JdbcCompanyDAOImpl();
-    private static CompanyDAO CompanyDAO = new HibernateCompanyDAOImpl();
+   private static CompanyDAO CompanyDAO = new HibernateCompanyDAOImpl();
 
     @Override
     void menu() {
@@ -30,7 +28,6 @@ class CompaniesMenu extends AbstractMenu {
 
     @Override
     void getAll() {
-        //List<Company> companies = jdbcCompanyDAO.getAll();
         List<Company> companies = CompanyDAO.getAll();
 
         System.out.println("********** Companies ************");
@@ -51,7 +48,6 @@ class CompaniesMenu extends AbstractMenu {
         System.out.print("Введіть id компанії: ");
         Long id = sc.nextLong();
         sc.nextLine();
-        //Company company = jdbcCompanyDAO.getById(id);
         Company company = CompanyDAO.getById(id);
 
         System.out.println("********** Company ************");
@@ -70,7 +66,6 @@ class CompaniesMenu extends AbstractMenu {
 
         Company company = new Company();
         company.withName(name);
-        //jdbcCompanyDAO.create(company);
         CompanyDAO.create(company);
     }
 
@@ -79,14 +74,14 @@ class CompaniesMenu extends AbstractMenu {
         System.out.print("Введіть id компанії: ");
         Long id = sc.nextLong();
         sc.nextLine();
-        Company company = jdbcCompanyDAO.getById(id);  //перевірка чи компанія з таким id існує
+        Company company = CompanyDAO.getById(id);  //перевірка чи компанія з таким id існує
 
         if (company != null){
             System.out.println("Введіть назву компанії: ");
             String name = sc.nextLine().trim();
             company.withId(id)
                     .withName(name);
-            jdbcCompanyDAO.update(company);
+            CompanyDAO.update(company);
         } else {
             System.out.println("Компанія з id = " + id + " відсутня.");
         }
@@ -97,10 +92,10 @@ class CompaniesMenu extends AbstractMenu {
         System.out.print("Введіть id компанії: ");
         Long id = sc.nextLong();
         sc.nextLine();
-        Company company = jdbcCompanyDAO.getById(id);  //перевірка чи компанія з таким id існує
+        Company company = CompanyDAO.getById(id);  //перевірка чи компанія з таким id існує
 
         if (company != null){
-            jdbcCompanyDAO.delete(company);
+            CompanyDAO.delete(company);
         } else {
             System.out.println("Компанія з id = " + id + " відсутня.");
         }

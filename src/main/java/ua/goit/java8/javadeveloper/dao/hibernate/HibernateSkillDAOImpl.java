@@ -1,30 +1,32 @@
 package ua.goit.java8.javadeveloper.dao.hibernate;
 
-import org.hibernate.*;
-import ua.goit.java8.javadeveloper.dao.CompanyDAO;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import ua.goit.java8.javadeveloper.dao.SkillDAO;
 import ua.goit.java8.javadeveloper.dao.utils.HibernateUtil;
-import ua.goit.java8.javadeveloper.model.Company;
+import ua.goit.java8.javadeveloper.model.Skill;
 
 import java.util.List;
-import java.util.Map;
 
 /**
- * Created by t.oleksiv on 16/11/2017.
+ * Created by Taras on 11.11.2017.
  */
-public class HibernateCompanyDAOImpl implements CompanyDAO {
+public class HibernateSkillDAOImpl implements SkillDAO {
 
     @Override
-    public Company getById(Long aLong) {
+    public Skill getById(Long aLong) {
         Session session = null;
         Transaction tx = null;
-        Company result = null;
+        Skill result = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
             // HQL
-            Query query = session.createQuery("FROM Company WHERE id = :id");
+            Query query = session.createQuery("FROM Skill WHERE id = :id");
             query.setParameter("id",aLong);
-            List<Company> results = (List<Company>) query.list();
+            List<Skill> results = (List<Skill>) query.list();
             if (results.size() > 0){
                 result = results.get(0);
             }
@@ -41,33 +43,16 @@ public class HibernateCompanyDAOImpl implements CompanyDAO {
     }
 
     @Override
-    public List<Company> getAll() {
+    public List<Skill> getAll() {
         Session session = null;
         Transaction tx = null;
-        List<Company> result = null;
+        List<Skill> result = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
 
             // HQL
-            result = (List<Company>) session.createQuery("FROM Company order by name").list();
-
-            /* SQL Entity query
-            SQLQuery query = session.createSQLQuery("SELECT * FROM companies ORDER BY name");
-            query.addEntity(Company.class);
-            result = query.list();
-            */
-
-            /* SQL Scalar query
-            SQLQuery query = session.createSQLQuery("SELECT id, name FROM companies ORDER BY name");
-            query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
-            List data = query.list();
-            for(Object object : data) {
-                Map row = (Map)object;
-                System.out.print("Id: " + row.get("id"));
-                System.out.println(", Name: " + row.get("name"));
-            }
-            */
+            result = (List<Skill>) session.createQuery("FROM Skill order by name").list();
 
             session.getTransaction().commit();
         } catch (HibernateException e) {
@@ -82,28 +67,28 @@ public class HibernateCompanyDAOImpl implements CompanyDAO {
     }
 
     @Override
-    public void create(Company company) {
+    public void create(Skill skill) {
         Session session = null;
         Transaction tx = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
             // HQL
-            // перевірка чи компанія з таким name існує
-            Query query = session.createQuery("FROM Company WHERE name = :name");
-            query.setParameter("name",company.getName());
-            List<Company> results = (List<Company>) query.list();
+            // перевірка чи замовник з таким name існує
+            Query query = session.createQuery("FROM Skill WHERE name = :name");
+            query.setParameter("name",skill.getName());
+            List<Skill> results = (List<Skill>) query.list();
             if (results.size() > 0){
-                System.out.println("Компанія з такою назвою вже існує.");
+                System.out.println("Скіл з такою назвою вже існує.");
             } else {
-                session.save(company);
-                System.out.println("Компанію створено успішно.");
+                session.save(skill);
+                System.out.println("Скіл створено успішно.");
             }
             session.getTransaction().commit();
         } catch (HibernateException e) {
             if (tx!=null) tx.rollback();
             e.printStackTrace();
-            System.out.println("Неможливо створити компанію.");
+            System.out.println("Неможливо створити скіл.");
         } finally {
             if (session != null && session.isOpen()) {
                 session.close();
@@ -112,19 +97,19 @@ public class HibernateCompanyDAOImpl implements CompanyDAO {
     }
 
     @Override
-    public void update(Company company) {
+    public void update(Skill skill) {
         Session session = null;
         Transaction tx = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
-            session.update(company);
-            System.out.println("Компанію змінено успішно.");
+            session.update(skill);
+            System.out.println("Скіл змінено успішно.");
             session.getTransaction().commit();
         } catch (HibernateException e) {
             if (tx!=null) tx.rollback();
             e.printStackTrace();
-            System.out.println("Неможливо змінити компанію.");
+            System.out.println("Неможливо змінити скіл.");
         } finally {
             if (session != null && session.isOpen()) {
                 session.close();
@@ -132,21 +117,21 @@ public class HibernateCompanyDAOImpl implements CompanyDAO {
         }
     }
 
-    // каскадне видалення компанії зі всіх пов'язаних таблиць
+    // каскадне видалення скіла зі всіх пов'язаних таблиць
     @Override
-    public void delete(Company company) {
+    public void delete(Skill skill) {
         Session session = null;
         Transaction tx = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
-            session.delete(company);
-            System.out.println("Компанію вилучено успішно.");
+            session.delete(skill);
+            System.out.println("Скіл вилучено успішно.");
             session.getTransaction().commit();
         } catch (HibernateException e) {
             if (tx!=null) tx.rollback();
             e.printStackTrace();
-            System.out.println("Неможливо вилучити компанію.");
+            System.out.println("Неможливо вилучити скіл.");
         } finally {
             if (session != null && session.isOpen()) {
                 session.close();

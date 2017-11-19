@@ -33,7 +33,7 @@ CREATE TABLE developers (
   lastname varchar(45) NOT NULL,
   company_id int(11) NOT NULL,
   salary DECIMAL(7,2) NOT NULL,
-  PRIMARY KEY (id,company_id),
+  PRIMARY KEY (id),
   KEY FK_COMPANY_idx (company_id),
   CONSTRAINT FK_DEVELOPERS_COMPANY FOREIGN KEY (company_id) REFERENCES companies (id) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
