@@ -135,7 +135,7 @@ public class Project {
     private String showDevelopers(){
         String result = "";
         for (Developer developer: developers){
-            result += developer + ",";
+            result += developer + ",\n    ";
         }
         return result;
     }
@@ -143,8 +143,8 @@ public class Project {
     public String showProjectDevelopers(){
         return "Project{" +
                 "id=" +id + " " +
-                "name=" + name + "; " +
-                "{Developers: " +
+                "name=" + name + "; \n    " +
+                "{Developers: \n    " +
                 showDevelopers() +
                 "}}";
     }
