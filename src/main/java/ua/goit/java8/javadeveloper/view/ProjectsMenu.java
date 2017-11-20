@@ -29,7 +29,7 @@ public class ProjectsMenu {
         show();
     }
 
-    void show() {
+    private void show() {
         System.out.println();
         menu();
 
@@ -67,8 +67,7 @@ public class ProjectsMenu {
         show();
     }
 
-    //@Override
-    void menu() {
+    private void menu() {
         System.out.println("Меню Projects");
         System.out.println("Які дії виконуєм? (" +
                 "1 - Вивести всі проекти, " +
@@ -82,8 +81,7 @@ public class ProjectsMenu {
                 "інший символ - Повернутись у Головне меню)");
     }
 
-    //@Override
-    void getAll() {
+    private void getAll() {
         List<Project> projects = projectDAO.getAll();
 
         System.out.println("********** Projects ************");
@@ -97,8 +95,7 @@ public class ProjectsMenu {
         System.out.println("**********************************");
     }
 
-    //@Override
-    void getById() {
+    private void getById() {
         System.out.print("Введіть id проекта: ");
         Long id = sc.nextLong();
         sc.nextLine();
@@ -113,8 +110,7 @@ public class ProjectsMenu {
         System.out.println("**********************************");
     }
 
-    //@Override
-    void create() {
+    private void create() {
         System.out.println("Введіть через пробіл наступні значення: ");
         System.out.println("Name Customer_Id Company_Id Costs");
         String delims = "[ ]";
@@ -148,8 +144,7 @@ public class ProjectsMenu {
         projectDAO.create(project);
     }
 
-    //@Override
-    void update() {
+    private void update() {
         System.out.print("Введіть id проекта: ");
         Long id = sc.nextLong();
         sc.nextLine();
@@ -178,8 +173,7 @@ public class ProjectsMenu {
         }
     }
 
-    //@Override
-    void delete() {
+    private void delete() {
         System.out.print("Введіть id проекта: ");
         Long id = sc.nextLong();
         sc.nextLine();
@@ -193,7 +187,7 @@ public class ProjectsMenu {
     }
 
     // вивести список девелоперів на проекті
-    void getDevelopersByProjectId() {
+    private void getDevelopersByProjectId() {
         System.out.print("Введіть id проекта: ");
         Long id = sc.nextLong();
         sc.nextLine();
@@ -209,7 +203,7 @@ public class ProjectsMenu {
     }
 
     // додати девелопера на проект
-    void addProjectDeveloper(){
+    private void addProjectDeveloper(){
         System.out.println("Введіть через пробіл наступні значення: ");
         System.out.println("Project_Id - id проекту, якому треба додати девелопера; Developer_Id - id девелопера, якого треба додати на проект");
         System.out.println("Project_Id Developer_Id");
@@ -235,7 +229,7 @@ public class ProjectsMenu {
     }
 
     // вилучити девелопера з проекту
-    void deleteProjectDeveloper(){
+    private void deleteProjectDeveloper(){
         System.out.println("Введіть через пробіл наступні значення: ");
         System.out.println("Project_Id - id проекту, з якого треба вилучити девелопера; Developer_Id - id девелопера, якого треба вилучити з проекту");
         System.out.println("Project_Id Developer_Id");
