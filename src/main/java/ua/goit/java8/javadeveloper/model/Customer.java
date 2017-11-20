@@ -76,8 +76,17 @@ public class Customer {
     private String showProjects(){
         String result = "";
         for (Project project: projects){
-            result += project + ",";
+            result += project + ",\n    ";
         }
         return result;
+    }
+
+    public String showCustomerProjects(){
+        return "Customer{" +
+                "id=" +id + " " +
+                "name=" + name + ";\n    " +
+                "{Projects:\n    " +
+                showProjects() +
+                "}}";
     }
 }

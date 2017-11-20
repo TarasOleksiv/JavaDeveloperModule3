@@ -5,28 +5,65 @@ import ua.goit.java8.javadeveloper.model.Customer;
 import ua.goit.java8.javadeveloper.dao.CustomerDAO;
 
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Created by Taras on 11.11.2017.
  */
-public class CustomersMenu extends AbstractMenu {
+public class CustomersMenu {
 
     private static CustomerDAO сustomerDAO = new HibernateCustomerDAOImpl();
+    private Scanner sc = new Scanner(System.in);
 
-    @Override
-    void menu() {
+    public CustomersMenu(){
+        show();
+    }
+
+    private void show(){
+        System.out.println();
+        menu();
+
+        System.out.print("Введіть символ: ");
+        String n = sc.nextLine().trim();
+        switch (n) {
+            case "1":
+                getAll();
+                break;
+            case "2":
+                getById();
+                break;
+            case "3":
+                create();
+                break;
+            case "4":
+                update();
+                break;
+            case "5":
+                delete();
+                break;
+            case "6":
+                getProjectsByCustomerId();
+                break;
+            default:
+                System.out.println("Повернення у Головне меню");
+                return;
+        }
+        show();
+    }
+
+    private void menu() {
         System.out.println("Меню Customers");
         System.out.println("Які дії виконуєм? (" +
                 "1 - Вивести всіх замовників, " +
                 "2 - Вивести замовника по id, " +
                 "3 - Створити замовника, " +
                 "4 - Оновити замовника, " +
-                "5 - Вилучити замовника, " +
+                "5 - Вилучити замовника, " + "\n" +
+                "6 - Вивести всі проекти замовника, " +
                 "інший символ - Повернутись у Головне меню)");
     }
 
-    @Override
-    void getAll() {
+    private void getAll() {
         List<Customer> customers = сustomerDAO.getAll();
 
         System.out.println("********** Customers ************");
@@ -40,8 +77,7 @@ public class CustomersMenu extends AbstractMenu {
         System.out.println("**********************************");
     }
 
-    @Override
-    void getById() {
+    private void getById() {
         System.out.print("Введіть id замовника: ");
         Long id = sc.nextLong();
         sc.nextLine();
@@ -56,8 +92,7 @@ public class CustomersMenu extends AbstractMenu {
         System.out.println("**********************************");
     }
 
-    @Override
-    void create() {
+    private void create() {
         System.out.println("Введіть назву замовника: ");
         String name = sc.nextLine().trim();
 
@@ -66,8 +101,7 @@ public class CustomersMenu extends AbstractMenu {
         сustomerDAO.create(customer);
     }
 
-    @Override
-    void update() {
+    private void update() {
         System.out.print("Введіть id замовника: ");
         Long id = sc.nextLong();
         sc.nextLine();
@@ -84,8 +118,7 @@ public class CustomersMenu extends AbstractMenu {
         }
     }
 
-    @Override
-    void delete() {
+    private void delete() {
         System.out.print("Введіть id замовника: ");
         Long id = sc.nextLong();
         sc.nextLine();
@@ -96,5 +129,21 @@ public class CustomersMenu extends AbstractMenu {
         } else {
             System.out.println("Замовник з id = " + id + " відсутній.");
         }
+    }
+
+    // вивести всі проекти замовника
+    private void getProjectsByCustomerId() {
+        System.out.print("Введіть id замовника: ");
+        Long id = sc.nextLong();
+        sc.nextLine();
+        Customer customer = сustomerDAO.getById(id);
+
+        System.out.println("********** Customer Projects ************");
+        if (customer != null){
+            System.out.println(customer.showCustomerProjects());
+        } else {
+            System.out.println("Замовник з id = " + id + " відсутній.");
+        }
+        System.out.println("**********************************");
     }
 }
