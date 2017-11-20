@@ -152,6 +152,15 @@ public class Developer {
         return result;
     }
 
+    public String showDeveloperProjects(){
+        return "Developer{" +
+                firstName + " " +
+                lastName + "; " +
+                "{Projects: " +
+                showProjects() +
+                "}}";
+    }
+
     private String showSkills(){
         String result = "";
         for (Skill skill: skills){

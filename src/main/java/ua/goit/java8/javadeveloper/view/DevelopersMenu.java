@@ -62,6 +62,9 @@ public class DevelopersMenu{
             case "8":
                 deleteDeveloperSkill();
                 break;
+            case "9":
+                getProjectsByDeveloperId();
+                break;
             default:
                 System.out.println("Повернення у Головне меню");
                 return;
@@ -81,6 +84,7 @@ public class DevelopersMenu{
                 "6 - Вивести скіли девелопера, " +
                 "7 - Додати скіл девелоперу, " +
                 "8 - Вилучити скіл девелопера, " +
+                "9 - Вивести проекти девелопера, " +
                 "інший символ - Повернутись у Головне меню)");
     }
 
@@ -249,8 +253,23 @@ public class DevelopersMenu{
             System.out.println("Скіл з skill_id = " + skill_id + " відсутній.");
             return;
         }
-
         developerDAO.deleteSkill(developer,skill);
+    }
+
+    // вивести всі скіли девелопера
+    void getProjectsByDeveloperId() {
+        System.out.print("Введіть id девелопера: ");
+        Long id = sc.nextLong();
+        sc.nextLine();
+        Developer developer = developerDAO.getById(id);
+
+        System.out.println("********** Developer Projects ************");
+        if (developer != null){
+            System.out.println(developer.showDeveloperProjects());
+        } else {
+            System.out.println("Девелопер з id = " + id + " відсутній.");
+        }
+        System.out.println("**********************************");
     }
 
 }
