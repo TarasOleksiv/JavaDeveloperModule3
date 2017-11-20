@@ -18,8 +18,8 @@ public class ConsoleApp {
     public static final Settings settings = new Settings();
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        // якщо бази із вказаною назвою не існує, створюєм базу на сервері
         String dbName = HibernateUtil.getHibernateConnectionDBname();
+        // якщо бази із вказаною назвою не існує, створюєм базу на сервері
         if (!checkDB(dbName)) initializeDB(dbName);
         new MainMenu();
     }
