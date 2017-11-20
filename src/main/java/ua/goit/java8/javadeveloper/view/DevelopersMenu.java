@@ -31,7 +31,7 @@ public class DevelopersMenu{
     }
 
 
-    void show(){
+    private void show(){
         System.out.println();
         menu();
 
@@ -72,8 +72,7 @@ public class DevelopersMenu{
         show();
     }
 
-    //@Override
-    void menu() {
+    private void menu() {
         System.out.println("Меню Developers");
         System.out.println("Які дії виконуєм? (" +
                 "1 - Вивести всіх девелоперів, " +
@@ -88,8 +87,7 @@ public class DevelopersMenu{
                 "інший символ - Повернутись у Головне меню)");
     }
 
-    //@Override
-    void getAll(){
+    private void getAll(){
         List<Developer> developers = developerDAO.getAll();
 
         System.out.println("********** Developers ************");
@@ -103,8 +101,7 @@ public class DevelopersMenu{
         System.out.println("**********************************");
     }
 
-    //@Override
-    void getById() {
+    private void getById() {
         System.out.print("Введіть id девелопера: ");
         Long id = sc.nextLong();
         sc.nextLine();
@@ -119,8 +116,7 @@ public class DevelopersMenu{
         System.out.println("**********************************");
     }
 
-    //@Override
-    void create() {
+    private void create() {
         System.out.println("Введіть через пробіл наступні значення: ");
         System.out.println("Firstname Lastname Company_Id Salary");
         String delims = "[ ]";
@@ -146,8 +142,7 @@ public class DevelopersMenu{
         }
     }
 
-    //@Override
-    void update() {
+    private void update() {
         System.out.print("Введіть id девелопера: ");
         Long id = sc.nextLong();
         sc.nextLine();
@@ -175,8 +170,7 @@ public class DevelopersMenu{
         }
     }
 
-    //@Override
-    void delete() {
+    private void delete() {
         System.out.print("Введіть id девелопера: ");
         Long id = sc.nextLong();
         sc.nextLine();
@@ -190,7 +184,7 @@ public class DevelopersMenu{
     }
 
     // вивести всі скіли девелопера
-    void getSkillsByDeveloperId() {
+    private void getSkillsByDeveloperId() {
         System.out.print("Введіть id девелопера: ");
         Long id = sc.nextLong();
         sc.nextLine();
@@ -206,7 +200,7 @@ public class DevelopersMenu{
     }
 
     // додати скіл девелоперу
-    void addDeveloperSkill(){
+    private void addDeveloperSkill(){
         System.out.println("Введіть через пробіл наступні значення: ");
         System.out.println("Developer_Id - id девелопера, якому треба додати скіл; Skill_Id - id скіла, який треба додати девелоперу");
         System.out.println("Developer_Id Skill_Id");
@@ -232,7 +226,7 @@ public class DevelopersMenu{
     }
 
     // вилучити скіл девелопера
-    void deleteDeveloperSkill(){
+    private void deleteDeveloperSkill(){
         System.out.println("Введіть через пробіл наступні значення: ");
         System.out.println("Developer_Id - id девелопера, якому треба вилучити скіл; Skill_Id - id скіла, який треба вилучити у девелопера");
         System.out.println("Developer_Id Skill_Id");
@@ -257,7 +251,7 @@ public class DevelopersMenu{
     }
 
     // вивести всі проекти девелопера
-    void getProjectsByDeveloperId() {
+    private void getProjectsByDeveloperId() {
         System.out.print("Введіть id девелопера: ");
         Long id = sc.nextLong();
         sc.nextLine();
