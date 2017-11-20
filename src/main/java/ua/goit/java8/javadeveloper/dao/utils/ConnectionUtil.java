@@ -1,21 +1,23 @@
 package ua.goit.java8.javadeveloper.dao.utils;
 
-import ua.goit.java8.javadeveloper.ConsoleApp;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
  * Created by t.oleksiv on 08/11/2017.
+ * Використовуєм JDBC.
+ * Цей клас використовується лише один раз на етапі перевірки існування бази на сервері
+ * в момент запуску програми,
+ * а також для створення бази у випадку якщо вона не існує
  */
 public class ConnectionUtil {
 
-    private static String driver = ConsoleApp.settings.getDriver();
-    private static String url = ConsoleApp.settings.getUrl();
-    private static String user = ConsoleApp.settings.getUser();
-    private static String pass = ConsoleApp.settings.getPass();
-    private static String database = ConsoleApp.settings.getDatabase();
+    // Read hibernate properties stored in hibernate.cfg.xml
+    private static String driver = HibernateUtil.getHibernateConnectionDriverClass();
+    private static String url = HibernateUtil.getHibernateConnectionServerURL();
+    private static String user = HibernateUtil.getHibernateConnectionUsername();
+    private static String pass = HibernateUtil.getHibernateConnectionPassword();
 
     static {
         try {
@@ -29,11 +31,4 @@ public class ConnectionUtil {
         return DriverManager.getConnection(url, user, pass);
     }
 
-    public static Connection getConnection(String database) throws SQLException {
-        return DriverManager.getConnection(url + database, user, pass);
-    }
-
-    public static Connection getConnectionDB() throws SQLException {
-        return getConnection(database);
-    }
 }

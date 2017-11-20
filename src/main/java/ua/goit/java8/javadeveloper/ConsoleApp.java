@@ -1,6 +1,7 @@
 package ua.goit.java8.javadeveloper;
 
 import ua.goit.java8.javadeveloper.dao.utils.ConnectionUtil;
+import ua.goit.java8.javadeveloper.dao.utils.HibernateUtil;
 import ua.goit.java8.javadeveloper.dao.utils.RunSqlScript;
 import ua.goit.java8.javadeveloper.view.MainMenu;
 
@@ -17,10 +18,13 @@ public class ConsoleApp {
     public static final Settings settings = new Settings();
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        if (!checkDB(settings.getDatabase())) initializeDB(settings.getDatabase());
+        // якщо бази із вказаною назвою не існує, створюєм базу на сервері
+        String dbName = HibernateUtil.getHibernateConnectionDBname();
+        if (!checkDB(dbName)) initializeDB(dbName);
         new MainMenu();
     }
 
+    // перевірка чи база із вказаною назвою існує на сервері
     private static boolean checkDB(String database) throws SQLException {
         boolean existsDB = false;
         String sql = "SHOW databases;";
@@ -52,6 +56,7 @@ public class ConsoleApp {
         return existsDB;
     }
 
+    // створення бази із вказаною назвою на сервері
     private static void initializeDB(String database) throws SQLException, ClassNotFoundException {
         System.out.println("**********************");
         System.out.println("Створюємо робочу базу " + database + " ...");

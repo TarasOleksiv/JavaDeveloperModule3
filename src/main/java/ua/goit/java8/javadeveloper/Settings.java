@@ -12,56 +12,11 @@ public class Settings {
 
     private static final String CONFIG_FILE_PATH = "src/main/resources/config.properties";
 
-    private String driver; // драйвер для бд
-    private String url; // адреса сервера
-    private String user;    // користувач
-    private String pass;    // пароль
-    private String database;    // база
     private String initDBSqlPath;   // шлях до файла зі скриптом ініціалізації бази
     private String populateDBSqlPath;   // шлях до файла зі скриптом заливки даних
 
     public Settings(){
         readSettings();
-    }
-
-    public String getDriver() {
-        return driver;
-    }
-
-    public void setDriver(String driver) {
-        this.driver = driver;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public String getPass() {
-        return pass;
-    }
-
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
-
-    public String getDatabase() {
-        return database;
-    }
-
-    public void setDatabase(String database) {
-        this.database = database;
     }
 
     public String getInitDBSqlPath() {
@@ -89,20 +44,10 @@ public class Settings {
             output = new FileOutputStream(CONFIG_FILE_PATH);
 
             // set the properties value
-            prop.setProperty("driver", "com.mysql.jdbc.Driver");
-            prop.setProperty("url", "jdbc:mysql://localhost:3306/");
-            prop.setProperty("user", "root");
-            prop.setProperty("pass", "root");
-            prop.setProperty("database", "toleksiv");
             prop.setProperty("initDBSqlPath", "src/main/resources/initDB.sql");
             prop.setProperty("populateDBSqlPath", "src/main/resources/populateDB.sql");
 
-            String comments = "    String driver: driver for the database\n" +
-                    "    String url: server's address\n" +
-                    "    String user: database user\n" +
-                    "    String pass: user password\n" +
-                    "    String database: database name\n" +
-                    "    String initDBSqlPath: path to the file for the database initialization\n" +
+            String comments = "    String initDBSqlPath: path to the file for the database initialization\n" +
                     "    String populateDBSqlPath: path to the file for the data population";
 
             // save properties to project root folder
@@ -134,11 +79,6 @@ public class Settings {
             prop.load(input);
 
             // get the property value and print it out
-            driver = (prop.getProperty("driver"));
-            url = (prop.getProperty("url"));
-            user = (prop.getProperty("user"));
-            pass = (prop.getProperty("pass"));
-            database = (prop.getProperty("database"));
             initDBSqlPath = (prop.getProperty("initDBSqlPath"));
             populateDBSqlPath = (prop.getProperty("populateDBSqlPath"));
 

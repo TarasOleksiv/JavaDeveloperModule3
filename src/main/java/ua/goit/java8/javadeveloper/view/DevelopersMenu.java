@@ -18,7 +18,7 @@ import java.util.Scanner;
  * Created by Taras on 10.11.2017.
  */
 
-public class DevelopersMenu {
+public class DevelopersMenu{
 
     private static DeveloperDAO developerDAO = new HibernateDeveloperDAOImpl();
     private static CompanyDAO companyDAO = new HibernateCompanyDAOImpl();
@@ -29,6 +29,7 @@ public class DevelopersMenu {
     public DevelopersMenu(){
         show();
     }
+
 
     void show(){
         System.out.println();
