@@ -89,16 +89,34 @@ public class Company {
     private String showDevelopers(){
         String result = "";
         for (Developer developer: developers){
-            result += developer + ",";
+            result += developer + ",\n    ";
         }
         return result;
+    }
+
+    public String showCompanyDevelopers(){
+        return "Company{" +
+                "id=" +id + " " +
+                "name=" + name + ";\n    " +
+                "{Developers:\n    " +
+                showDevelopers() +
+                "}}";
     }
 
     private String showProjects(){
         String result = "";
         for (Project project: projects){
-            result += project + ",";
+            result += project + ",\n    ";
         }
         return result;
+    }
+
+    public String showCompanyProjects(){
+        return "Company{" +
+                "id=" +id + " " +
+                "name=" + name + ";\n    " +
+                "{Projects:\n    " +
+                showProjects() +
+                "}}";
     }
 }
