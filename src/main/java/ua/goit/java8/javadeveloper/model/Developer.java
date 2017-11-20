@@ -147,7 +147,7 @@ public class Developer {
     private String showProjects(){
         String result = "";
         for (Project project: projects){
-            result += project + ",";
+            result += project + ",\n    ";
         }
         return result;
     }
@@ -155,8 +155,8 @@ public class Developer {
     public String showDeveloperProjects(){
         return "Developer{" +
                 firstName + " " +
-                lastName + "; " +
-                "{Projects: " +
+                lastName + "; \n    " +
+                "{Projects: \n    " +
                 showProjects() +
                 "}}";
     }
@@ -164,7 +164,7 @@ public class Developer {
     private String showSkills(){
         String result = "";
         for (Skill skill: skills){
-            result += skill + ",";
+            result += skill + ",\n    ";
         }
         return result;
     }
@@ -172,8 +172,8 @@ public class Developer {
     public String showDeveloperSkills(){
         return "Developer{" +
                 firstName + " " +
-                lastName + "; " +
-                "{Skills: " +
+                lastName + "; \n    " +
+                "{Skills: \n    " +
                 showSkills() +
                 "}}";
     }

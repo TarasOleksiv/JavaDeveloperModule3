@@ -12,7 +12,7 @@ import java.util.List;
 
 class CompaniesMenu extends AbstractMenu {
 
-   private static CompanyDAO CompanyDAO = new HibernateCompanyDAOImpl();
+   private static CompanyDAO сompanyDAO = new HibernateCompanyDAOImpl();
 
     @Override
     void menu() {
@@ -28,7 +28,7 @@ class CompaniesMenu extends AbstractMenu {
 
     @Override
     void getAll() {
-        List<Company> companies = CompanyDAO.getAll();
+        List<Company> companies = сompanyDAO.getAll();
 
         System.out.println("********** Companies ************");
         if (companies != null){
@@ -48,7 +48,7 @@ class CompaniesMenu extends AbstractMenu {
         System.out.print("Введіть id компанії: ");
         Long id = sc.nextLong();
         sc.nextLine();
-        Company company = CompanyDAO.getById(id);
+        Company company = сompanyDAO.getById(id);
 
         System.out.println("********** Company ************");
         if (company != null){
@@ -66,7 +66,7 @@ class CompaniesMenu extends AbstractMenu {
 
         Company company = new Company();
         company.withName(name);
-        CompanyDAO.create(company);
+        сompanyDAO.create(company);
     }
 
     @Override
@@ -74,14 +74,14 @@ class CompaniesMenu extends AbstractMenu {
         System.out.print("Введіть id компанії: ");
         Long id = sc.nextLong();
         sc.nextLine();
-        Company company = CompanyDAO.getById(id);  //перевірка чи компанія з таким id існує
+        Company company = сompanyDAO.getById(id);  //перевірка чи компанія з таким id існує
 
         if (company != null){
             System.out.println("Введіть назву компанії: ");
             String name = sc.nextLine().trim();
             company.withId(id)
                     .withName(name);
-            CompanyDAO.update(company);
+            сompanyDAO.update(company);
         } else {
             System.out.println("Компанія з id = " + id + " відсутня.");
         }
@@ -92,10 +92,10 @@ class CompaniesMenu extends AbstractMenu {
         System.out.print("Введіть id компанії: ");
         Long id = sc.nextLong();
         sc.nextLine();
-        Company company = CompanyDAO.getById(id);  //перевірка чи компанія з таким id існує
+        Company company = сompanyDAO.getById(id);  //перевірка чи компанія з таким id існує
 
         if (company != null){
-            CompanyDAO.delete(company);
+            сompanyDAO.delete(company);
         } else {
             System.out.println("Компанія з id = " + id + " відсутня.");
         }

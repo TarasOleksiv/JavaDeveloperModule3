@@ -79,9 +79,18 @@ public class Skill {
     private String showDevelopers(){
         String result = "";
         for (Developer developer: developers){
-            result += developer + ",";
+            result += developer + ",\n    ";
         }
         return result;
+    }
+
+    public String showSkillDevelopers(){
+        return "Skill{" +
+                "id=" +id + " " +
+                "name=" + name + ";\n    " +
+                "{Developers:\n    " +
+                showDevelopers() +
+                "}}";
     }
 
     public boolean equals(Object obj) {

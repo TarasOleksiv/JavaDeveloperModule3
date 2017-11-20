@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class CustomersMenu extends AbstractMenu {
 
-    private static CustomerDAO CustomerDAO = new HibernateCustomerDAOImpl();
+    private static CustomerDAO сustomerDAO = new HibernateCustomerDAOImpl();
 
     @Override
     void menu() {
@@ -27,7 +27,7 @@ public class CustomersMenu extends AbstractMenu {
 
     @Override
     void getAll() {
-        List<Customer> customers = CustomerDAO.getAll();
+        List<Customer> customers = сustomerDAO.getAll();
 
         System.out.println("********** Customers ************");
         if (customers != null){
@@ -45,7 +45,7 @@ public class CustomersMenu extends AbstractMenu {
         System.out.print("Введіть id замовника: ");
         Long id = sc.nextLong();
         sc.nextLine();
-        Customer customer = CustomerDAO.getById(id);
+        Customer customer = сustomerDAO.getById(id);
 
         System.out.println("********** Customer ************");
         if (customer != null){
@@ -63,7 +63,7 @@ public class CustomersMenu extends AbstractMenu {
 
         Customer customer = new Customer();
         customer.withName(name);
-        CustomerDAO.create(customer);
+        сustomerDAO.create(customer);
     }
 
     @Override
@@ -71,14 +71,14 @@ public class CustomersMenu extends AbstractMenu {
         System.out.print("Введіть id замовника: ");
         Long id = sc.nextLong();
         sc.nextLine();
-        Customer customer = CustomerDAO.getById(id);  //перевірка чи замовник з таким id існує
+        Customer customer = сustomerDAO.getById(id);  //перевірка чи замовник з таким id існує
 
         if (customer != null){
             System.out.println("Введіть назву замовника: ");
             String name = sc.nextLine().trim();
             customer.withId(id)
                     .withName(name);
-            CustomerDAO.update(customer);
+            сustomerDAO.update(customer);
         } else {
             System.out.println("Замовник з id = " + id + " відсутній.");
         }
@@ -89,10 +89,10 @@ public class CustomersMenu extends AbstractMenu {
         System.out.print("Введіть id замовника: ");
         Long id = sc.nextLong();
         sc.nextLine();
-        Customer customer = CustomerDAO.getById(id);  //перевірка чи замовник з таким id існує
+        Customer customer = сustomerDAO.getById(id);  //перевірка чи замовник з таким id існує
 
         if (customer != null){
-            CustomerDAO.delete(customer);
+            сustomerDAO.delete(customer);
         } else {
             System.out.println("Замовник з id = " + id + " відсутній.");
         }

@@ -256,7 +256,7 @@ public class DevelopersMenu{
         developerDAO.deleteSkill(developer,skill);
     }
 
-    // вивести всі скіли девелопера
+    // вивести всі проекти девелопера
     void getProjectsByDeveloperId() {
         System.out.print("Введіть id девелопера: ");
         Long id = sc.nextLong();
