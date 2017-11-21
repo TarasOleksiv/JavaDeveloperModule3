@@ -22,6 +22,7 @@ public class ConsoleApp {
         // якщо бази із вказаною назвою не існує, створюєм базу на сервері
         if (!checkDB(dbName)) initializeDB(dbName);
         new MainMenu();
+        HibernateUtil.getSessionFactory().close();
     }
 
     // перевірка чи база із вказаною назвою існує на сервері
