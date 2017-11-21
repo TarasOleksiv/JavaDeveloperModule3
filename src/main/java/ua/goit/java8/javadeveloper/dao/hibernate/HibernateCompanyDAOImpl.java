@@ -21,13 +21,7 @@ public class HibernateCompanyDAOImpl implements CompanyDAO {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
-            // HQL
-            Query query = session.createQuery("FROM Company WHERE id = :id");
-            query.setParameter("id",aLong);
-            List<Company> results = (List<Company>) query.list();
-            if (results.size() > 0){
-                result = results.get(0);
-            }
+            result = (Company) session.get(Company.class,aLong);
             session.getTransaction().commit();
         } catch (HibernateException e) {
             if (tx!=null) tx.rollback();

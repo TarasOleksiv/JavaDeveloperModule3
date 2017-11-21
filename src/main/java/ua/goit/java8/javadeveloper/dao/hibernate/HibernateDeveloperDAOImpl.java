@@ -24,13 +24,7 @@ public class HibernateDeveloperDAOImpl implements DeveloperDAO {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
-            // HQL
-            Query query = session.createQuery("FROM Developer WHERE id = :id");
-            query.setParameter("id",aLong);
-            List<Developer> results = (List<Developer>) query.list();
-            if (results.size() > 0){
-                result = results.get(0);
-            }
+            result = (Developer) session.get(Developer.class,aLong);
             session.getTransaction().commit();
         } catch (HibernateException e) {
             if (tx!=null) tx.rollback();

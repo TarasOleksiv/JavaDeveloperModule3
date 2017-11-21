@@ -23,13 +23,7 @@ public class HibernateSkillDAOImpl implements SkillDAO {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
-            // HQL
-            Query query = session.createQuery("FROM Skill WHERE id = :id");
-            query.setParameter("id",aLong);
-            List<Skill> results = (List<Skill>) query.list();
-            if (results.size() > 0){
-                result = results.get(0);
-            }
+            result = (Skill) session.get(Skill.class,aLong);
             session.getTransaction().commit();
         } catch (HibernateException e) {
             if (tx!=null) tx.rollback();

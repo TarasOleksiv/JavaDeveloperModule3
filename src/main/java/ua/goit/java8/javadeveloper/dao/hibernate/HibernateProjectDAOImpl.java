@@ -24,13 +24,7 @@ public class HibernateProjectDAOImpl implements ProjectDAO {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
-            // HQL
-            Query query = session.createQuery("FROM Project WHERE id = :id");
-            query.setParameter("id",aLong);
-            List<Project> results = (List<Project>) query.list();
-            if (results.size() > 0){
-                result = results.get(0);
-            }
+            result = (Project) session.get(Project.class,aLong);
             session.getTransaction().commit();
         } catch (HibernateException e) {
             if (tx!=null) tx.rollback();

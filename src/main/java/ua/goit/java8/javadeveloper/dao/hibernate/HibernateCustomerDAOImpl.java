@@ -23,13 +23,7 @@ public class HibernateCustomerDAOImpl implements CustomerDAO {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
-            // HQL
-            Query query = session.createQuery("FROM Customer WHERE id = :id");
-            query.setParameter("id",aLong);
-            List<Customer> results = (List<Customer>) query.list();
-            if (results.size() > 0){
-                result = results.get(0);
-            }
+            result = (Customer) session.get(Customer.class,aLong);
             session.getTransaction().commit();
         } catch (HibernateException e) {
             if (tx!=null) tx.rollback();
