@@ -1,5 +1,8 @@
 package ua.goit.java8.javadeveloper.model;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -9,6 +12,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "customers")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE,region = "customerCache")
 public class Customer {
 
     @Id

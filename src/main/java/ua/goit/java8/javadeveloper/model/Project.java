@@ -1,5 +1,8 @@
 package ua.goit.java8.javadeveloper.model;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Set;
@@ -10,6 +13,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "projects")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE,region = "projectCache")
 public class Project {
 
     @Id

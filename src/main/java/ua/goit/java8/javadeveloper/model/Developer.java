@@ -3,12 +3,16 @@ package ua.goit.java8.javadeveloper.model;
 /**
  * Created by t.oleksiv on 09/11/2017.
  */
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Set;
 
 @Entity
 @Table(name = "developers")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE,region = "developerCache")
 public class Developer {
 
     @Id
